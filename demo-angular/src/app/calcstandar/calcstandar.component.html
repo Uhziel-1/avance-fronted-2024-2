@@ -1,0 +1,32 @@
+<p>calcstandar works!</p>
+
+<div class="calculadora">
+  <div class="pantalla">
+    <input type="text" [(ngModel)]="pantalla" disabled>
+  </div>
+  <div class="botones">
+
+    <button (click)="presionarNumero('7')">7</button>
+    <button (click)="presionarNumero('8')">8</button>
+    <button (click)="presionarNumero('9')">9</button>
+    <button (click)="presionarNumero('/')">/</button>
+
+    <button (click)="presionarNumero('4')">4</button>
+    <button (click)="presionarNumero('5')">5</button>
+    <button (click)="presionarNumero('6')">6</button>
+    <button (click)="presionarNumero('*')">*</button>
+
+    <button (click)="presionarNumero('1')">1</button>
+    <button (click)="presionarNumero('2')">2</button>
+    <button (click)="presionarNumero('3')">3</button>
+    <button (click)="presionarNumero('-')">-</button>
+
+    <button (click)="presionarNumero('0')">0</button>
+    <button (click)="presionarNumero('.')">.</button>
+    <button (click)="presionarNumero('=')">=</button>
+    <button (click)="presionarNumero('+')">+</button>
+
+    <button class="clear" (click)="presionarNumero('C')">C</button>
+
+  </div>
+</div>
