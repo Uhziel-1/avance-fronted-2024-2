@@ -1,0 +1,32 @@
+.calculadora {
+  width: 330px;
+  margin: 50px auto;
+  background-color: #838383;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+.botones {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+button {
+  width: 100%;
+  height: 50px;
+  font-size: 18px;
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.pantalla input {
+  grid-column: span 4;
+  width: 95%;
+  height: 40px;
+  text-align: right;
+  font-size: 18px;
+  margin-bottom: 10px;
+  padding: 5px;
+}

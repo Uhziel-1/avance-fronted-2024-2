@@ -1,0 +1,64 @@
+<p>Calculadora Estándar (Bootstrap)</p>
+
+<div class="calculadora card shadow p-3">
+  <div class="pantalla mb-3">
+    <input type="text" class="form-control text-right" [(ngModel)]="pantalla" disabled>
+  </div>
+
+  <div class="botones row gap-4">
+    <div class="col-3">
+      <button class="btn btn-secondary w-100" (click)="presionarNumero('7')">7</button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-secondary w-100" (click)="presionarNumero('8')">8</button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-secondary w-100" (click)="presionarNumero('9')">9</button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-primary w-100" (click)="presionarNumero('/')">/</button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-secondary w-100" (click)="presionarNumero('4')">4</button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-secondary w-100" (click)="presionarNumero('5')">5</button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-secondary w-100" (click)="presionarNumero('6')">6</button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-primary w-100" (click)="presionarNumero('*')">*</button>
+    </div>
+
+    <div class="col-3">
+      <button class="btn btn-secondary w-100" (click)="presionarNumero('1')">1</button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-secondary w-100" (click)="presionarNumero('2')">2</button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-secondary w-100" (click)="presionarNumero('3')">3</button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-primary w-100" (click)="presionarNumero('-')">-</button>
+    </div>
+
+    <div class="col-3">
+      <button class="btn btn-secondary w-100" (click)="presionarNumero('0')">0</button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-secondary w-100" (click)="presionarNumero('.')">.</button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-success w-100" (click)="presionarNumero('=')">=</button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-primary w-100" (click)="presionarNumero('+')">+</button>
+    </div>
+
+    <div class="col-12">
+      <button class="btn btn-danger w-100" (click)="presionarNumero('C')">C</button>
+    </div>
+  </div>
+</div>

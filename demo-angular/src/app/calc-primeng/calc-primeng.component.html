@@ -1,0 +1,33 @@
+<p>Calculadora Estándar (PrimeNG)</p>
+Prueba PrimeNG
+<p-button label="¡Acción Importante!" icon="pi pi-check" styleClass="p-button-warning" [style]="{'font-size': '1.5em'}"></p-button>
+
+<div class="calculadora">
+  <div class="pantalla">
+    <input type="text" [(ngModel)]="pantalla" disabled>
+  </div>
+
+  <div class="botones">
+    <button pButton type="button" label="7" (click)="presionarNumero('7')"></button>
+    <button pButton type="button" label="8" (click)="presionarNumero('8')"></button>
+    <button pButton type="button" label="9" (click)="presionarNumero('9')"></button>
+    <button pButton type="button" label="/" (click)="presionarNumero('/')"></button>
+
+    <button pButton type="button" label="4" (click)="presionarNumero('4')"></button>
+    <button pButton type="button" label="5" (click)="presionarNumero('5')"></button>
+    <button pButton type="button" label="6" (click)="presionarNumero('6')"></button>
+    <button pButton type="button" label="*" (click)="presionarNumero('*')"></button>
+
+    <button pButton type="button" label="1" (click)="presionarNumero('1')"></button>
+    <button pButton type="button" label="2" (click)="presionarNumero('2')"></button>
+    <button pButton type="button" label="3" (click)="presionarNumero('3')"></button>
+    <button pButton type="button" label="-" (click)="presionarNumero('-')"></button>
+
+    <button pButton type="button" label="0" (click)="presionarNumero('0')"></button>
+    <button pButton type="button" label="." (click)="presionarNumero('.')"></button>
+    <button pButton type="button" label="=" (click)="presionarNumero('=')" class="igual"></button>
+    <button pButton type="button" label="+" (click)="presionarNumero('+')"></button>
+
+    <button pButton type="button" label="C" (click)="presionarNumero('C')" class="clear"></button>
+  </div>
+</div>

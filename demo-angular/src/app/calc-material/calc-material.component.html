@@ -1,0 +1,31 @@
+<p>Calculadora Estándar (Angular Material)</p>
+
+<mat-card class="calculadora">
+  <div class="pantalla">
+    <input matInput type="text" [(ngModel)]="pantalla" disabled>
+  </div>
+
+  <div class="botones">
+    <button mat-raised-button color="primary" (click)="presionarNumero('7')">7</button>
+    <button mat-raised-button color="primary" (click)="presionarNumero('8')">8</button>
+    <button mat-raised-button color="primary" (click)="presionarNumero('9')">9</button>
+    <button mat-raised-button color="accent" (click)="presionarNumero('/')">/</button>
+
+    <button mat-raised-button color="primary" (click)="presionarNumero('4')">4</button>
+    <button mat-raised-button color="primary" (click)="presionarNumero('5')">5</button>
+    <button mat-raised-button color="primary" (click)="presionarNumero('6')">6</button>
+    <button mat-raised-button color="accent" (click)="presionarNumero('*')">*</button>
+
+    <button mat-raised-button color="primary" (click)="presionarNumero('1')">1</button>
+    <button mat-raised-button color="primary" (click)="presionarNumero('2')">2</button>
+    <button mat-raised-button color="primary" (click)="presionarNumero('3')">3</button>
+    <button mat-raised-button color="accent" (click)="presionarNumero('-')">-</button>
+
+    <button mat-raised-button color="primary" (click)="presionarNumero('0')">0</button>
+    <button mat-raised-button color="primary" (click)="presionarNumero('.')">.</button>
+    <button mat-raised-button color="accent" (click)="presionarNumero('=')">=</button>
+    <button mat-raised-button color="accent" (click)="presionarNumero('+')">+</button>
+
+    <button mat-raised-button color="warn" (click)="presionarNumero('C')">C</button>
+  </div>
+</mat-card>

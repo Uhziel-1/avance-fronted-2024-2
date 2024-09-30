@@ -1,0 +1,15 @@
+.calculadora {
+  width: 260px;
+  margin: 50px auto;
+  border-radius: 10px;
+  background-color: #f7f7f7;
+}
+
+.pantalla input {
+  height: 50px;
+  font-size: 24px;
+}
+
+.botones button {
+  font-size: 20px;
+}
