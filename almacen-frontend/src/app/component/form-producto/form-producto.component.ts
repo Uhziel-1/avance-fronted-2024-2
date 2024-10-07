@@ -74,6 +74,7 @@ export class FormProductoComponent implements OnInit {
         next: (response) => {
           console.log('Producto guardado exitosamente', response);
           this.productForm.reset(); // Resetea el formulario después de guardar
+
         },
         error: (error) => {
           console.error('Error al guardar el producto', error);

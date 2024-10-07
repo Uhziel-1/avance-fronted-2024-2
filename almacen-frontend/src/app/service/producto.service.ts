@@ -11,7 +11,7 @@ export class ProductoService {
   constructor(private http: HttpClient) { }
 
   findAll(){
-    return this.http.get(this.url);
+    return this.http.get<Producto[]>(this.url);
   }
 
   findById(id:number){
@@ -19,7 +19,7 @@ export class ProductoService {
   }
 
   save(producto: Producto){
-    return this.http.put(this.url, producto);
+    return this.http.post(this.url, producto);
   }
 
   delete(id:number){
