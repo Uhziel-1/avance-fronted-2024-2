@@ -6,6 +6,8 @@ import {ProductoService} from "../../service/producto.service";
 import {Producto} from "../../model/Producto";
 import {NgForOf, NgIf} from "@angular/common";
 import {ProductoRepor} from "../../model/ProductoRepor";
+import {MatTableDataSource} from "@angular/material/table";
+import {MarcaService} from "../../service/marca.service";
 
 @Component({
   selector: 'app-form-producto',
@@ -20,6 +22,7 @@ import {ProductoRepor} from "../../model/ProductoRepor";
 })
 export class FormProductoComponent implements OnInit {
   productForm: FormGroup;
+  marcaForm: FormGroup;
   productSaved = false;
   categorias: Categoria[] = [
     { idCategoria: 1, nombre: 'Electrónica' },
@@ -39,7 +42,7 @@ export class FormProductoComponent implements OnInit {
 
   productoSeleccionado:ProductoRepor|null = null;
 
-  constructor(private serviceProducto:ProductoService, private fb: FormBuilder) {
+  constructor(private serviceProducto:ProductoService, private serviceMarca:MarcaService, private fb: FormBuilder) {
     this.productForm = this.fb.group({
       idProducto: [null],
       nombre: ['', Validators.required],
@@ -66,9 +69,8 @@ export class FormProductoComponent implements OnInit {
           unidadMedida: data.unidadMedida.idUnidad
         });
       }
-    })
+    });
   }
-
   saveProduct() {
     if (this.productForm.valid) {
       console.log(this.productForm.value);

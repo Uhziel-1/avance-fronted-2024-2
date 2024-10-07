@@ -37,6 +37,14 @@
   </div>
 
   <div>
+    <label>StockOld</label>
+    <input type="number" formControlName="stockOld" placeholder="StockOld" />
+    <div *ngIf="productForm.controls['stockOld'].invalid && productForm.controls['stockOld'].touched">
+      <small class="error-text">Este campo es requerido</small>
+    </div>
+  </div>
+
+  <div>
     <label>Categoría</label>
     <select formControlName="categoria">
       <option *ngFor="let categoria of categorias" [value]="categoria.idCategoria">

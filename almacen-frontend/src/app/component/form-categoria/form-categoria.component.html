@@ -1,0 +1,15 @@
+<p>form-categoria works!</p>
+<form [formGroup]="categoryForm" (ngSubmit)="saveCategory()">
+  <div>
+    <label>Nombre del Categoria</label>
+    <input formControlName="nombre" placeholder="Nombre" />
+    <div *ngIf="categoryForm.controls['nombre'].invalid && categoryForm.controls['nombre'].touched">
+      <small class="error-text">Este campo es requerido</small>
+    </div>
+  </div>
+
+  <button type="submit">Guardar Categoria</button>
+</form>
+
+
+<p *ngIf="categorySaved" class="success-message">Categoria guardado exitosamente.</p>
