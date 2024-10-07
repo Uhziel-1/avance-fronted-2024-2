@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {environment} from "../../environments/environment.development";
 import {Producto} from "../model/Producto";
+import {BehaviorSubject, Observable, tap} from "rxjs";
+import {ProductoRepor} from "../model/ProductoRepor";
 
 @Injectable({
   providedIn: 'root'
@@ -10,23 +12,46 @@ export class ProductoService {
   private url = `${environment.HOST}/productos`;
   constructor(private http: HttpClient) { }
 
-  findAll(){
-    return this.http.get<Producto[]>(this.url);
+  private productosSubject = new BehaviorSubject<ProductoRepor[]>([]); // Comportamiento inicial
+  productos$ = this.productosSubject.asObservable(); // Observable para suscribirse
+
+  private productoSeleccionadoSubject = new BehaviorSubject<ProductoRepor | null>(null);
+  productoSeleccionado$ = this.productoSeleccionadoSubject.asObservable()
+
+  findAll():void{
+    // return this.http.get<Producto[]>(this.url);
+    this.http.get<ProductoRepor[]>(this.url).subscribe(data=>{
+      this.productosSubject.next(data);
+    });
   }
+
 
   findById(id:number){
     return this.http.get<Producto>(this.url + `/${id}`);
   }
 
-  save(producto: Producto){
-    return this.http.post(this.url, producto);
+  save(producto: Producto):Observable<Producto>{
+    //return this.http.post(this.url, producto);
+    return this.http.post<Producto>(this.url, producto).pipe(
+      tap(() => this.findAll())
+    );
+
   }
 
-  delete(id:number){
-    return this.http.delete(this.url + `/${id}`);
+  update(id: number, producto: Producto):Observable<Producto>{
+    return this.http.put<Producto>(`${this.url}/${id}`, producto).pipe(
+      tap(() => this.findAll())
+    );
+  }
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${id}`).pipe(
+      tap(() => this.findAll())
+    );
+  }
+  seleccionarProducto(producto: ProductoRepor) {
+    console.log("SERVICE");
+    console.log(producto);
+    this.productoSeleccionadoSubject.next(producto);
   }
 
-  update(id:number, producto: Producto){
-    return this.http.put(this.url + `/${id}`, producto);
-  }
 }

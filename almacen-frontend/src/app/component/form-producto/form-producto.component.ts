@@ -5,6 +5,7 @@ import {Marca} from "../../model/Marca";
 import {ProductoService} from "../../service/producto.service";
 import {Producto} from "../../model/Producto";
 import {NgForOf, NgIf} from "@angular/common";
+import {ProductoRepor} from "../../model/ProductoRepor";
 
 @Component({
   selector: 'app-form-producto',
@@ -36,6 +37,8 @@ export class FormProductoComponent implements OnInit {
     { idUnidad: 2, nombre: 'Caja' }
   ]; // Ejemplo de unidades de medida como objetos
 
+  productoSeleccionado:ProductoRepor|null = null;
+
   constructor(private serviceProducto:ProductoService, private fb: FormBuilder) {
     this.productForm = this.fb.group({
       idProducto: [null],
@@ -53,6 +56,17 @@ export class FormProductoComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.serviceProducto.productoSeleccionado$.subscribe(data => { this.productoSeleccionado =
+      data;
+      if (data) {
+        this.productForm.patchValue(data);
+        this.productForm.patchValue({
+          categoria: data.categoria.idCategoria,
+          marca: data.marca.idMarca,
+          unidadMedida: data.unidadMedida.idUnidad
+        });
+      }
+    })
   }
 
   saveProduct() {
@@ -74,7 +88,6 @@ export class FormProductoComponent implements OnInit {
         next: (response) => {
           console.log('Producto guardado exitosamente', response);
           this.productForm.reset(); // Resetea el formulario después de guardar
-
         },
         error: (error) => {
           console.error('Error al guardar el producto', error);

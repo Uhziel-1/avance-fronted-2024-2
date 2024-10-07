@@ -1,5 +1,9 @@
 <p>lista-producto works!</p>
 
 @for (p of productos;track $index) {
-  <li>{{p.nombre}} - {{p.stock}}</li>
+
+  <li>{{p.nombre}} - {{p.stock}}
+    <button (click)="cargarProducto(p)">Editar</button>
+    <button (click)="eliminar(p.idProducto)" >Eliminar</button>
+  </li>
 }
