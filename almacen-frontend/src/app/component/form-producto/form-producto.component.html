@@ -72,7 +72,7 @@
     <label>Unidad de Medida</label>
     <select formControlName="unidadMedida">
       <option *ngFor="let unidad of unidadesMedida" [value]="unidad.idUnidad">
-        {{ unidad.nombre }}
+        {{ unidad.nombreMedida }}
       </option>
     </select>
     <div *ngIf="productForm.controls['unidadMedida'].invalid && productForm.controls['unidadMedida'].touched">

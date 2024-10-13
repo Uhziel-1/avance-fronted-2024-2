@@ -11,7 +11,7 @@ import pe.edu.upeu.sysalmacen.servicio.ICategoriaService;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CategoriaServiceImp extends CrudGenericoServiceImp<Categoria,Long>  implements ICategoriaService {
+public class CategoriaServiceImp extends CrudGenericoServiceImp<Categoria,Long> implements ICategoriaService {
 
     private final ICategoriaRepository repo;
     @Override

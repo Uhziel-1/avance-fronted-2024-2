@@ -11,11 +11,10 @@ import {
   MatTable,
   MatTableDataSource
 } from "@angular/material/table";
-import {MatSort} from "@angular/material/sort";
+import {MatSort, MatSortModule} from "@angular/material/sort";
 import {MatInput} from "@angular/material/input";
 import {FormProductoComponent} from "../form-producto/form-producto.component";
 import {MaterialModule} from "../../material/material.module";
-import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-lista-producto',
@@ -23,23 +22,23 @@ import {MatButton} from "@angular/material/button";
   imports: [
     MaterialModule,
     MatFormField,
-    MatPaginator,
     MatTable,
-    MatLabel,
-    MatSort,
-    MatColumnDef,
+    MatInput,
     MatHeaderCell,
     MatCell,
-    MatHeaderCellDef,
-    MatCellDef,
+    MatSort,
+    MatColumnDef,
     MatHeaderRow,
-    MatNoDataRow,
     MatRow,
-    MatRowDef,
+    MatPaginator,
+    MatNoDataRow,
     MatHeaderRowDef,
-    MatInput,
+    MatRowDef,
+    MatCellDef,
+    MatHeaderCellDef,
+    MatLabel,
     FormProductoComponent,
-    MatButton,
+    MatSortModule
   ],
   templateUrl: './lista-producto.component.html',
   styleUrl: './lista-producto.component.css'
@@ -60,14 +59,15 @@ export class ListaProductoComponent implements OnInit {
 
   ngOnInit() {
     //this.productoService.findAll().subscribe(productos => this.productos = productos);
-    this.productoService.findAll();
-    this.productoService.productos$.subscribe(data => {
-      //this.productos = data;
+    this.productoService.productos$.subscribe(data=>{
+      //this.productos=data;
       this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+
     });
 
+    this.productoService.findAll();
   }
 
   eliminar(id:number) {

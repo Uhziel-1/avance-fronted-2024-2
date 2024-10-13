@@ -13,10 +13,9 @@ import pe.edu.upeu.sysalmacen.servicio.ICategoriaService;
 import java.net.URI;
 import java.util.List;
 
-
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/categoria")
+@RequestMapping("/categorias")
 @CrossOrigin("*")
 public class CategoriaController {
     private final ICategoriaService categoriaService;

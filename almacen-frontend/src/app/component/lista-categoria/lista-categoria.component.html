@@ -1,9 +1,0 @@
-<p>lista-categoria works!</p>
-
- @for (c of categorias;track $index) {
-
-  <li>{{c.nombre}}
-    <button (click)="cargarCategoria(c)">Editar</button>
-    <button (click)="eliminar(c.idCategoria)" >Eliminar</button>
-  </li>
- }

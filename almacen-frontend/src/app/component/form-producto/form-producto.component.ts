@@ -6,8 +6,10 @@ import {ProductoService} from "../../service/producto.service";
 import {Producto} from "../../model/Producto";
 import {NgForOf, NgIf} from "@angular/common";
 import {ProductoRepor} from "../../model/ProductoRepor";
-import {MatTableDataSource} from "@angular/material/table";
 import {MarcaService} from "../../service/marca.service";
+import {CategoriaService} from "../../service/categoria.service";
+import {UnidadMedidaService} from "../../service/unidadMedida.service";
+import {UnidadMedida} from "../../model/UnidadMedida";
 
 @Component({
   selector: 'app-form-producto',
@@ -22,27 +24,34 @@ import {MarcaService} from "../../service/marca.service";
 })
 export class FormProductoComponent implements OnInit {
   productForm: FormGroup;
-  marcaForm: FormGroup;
   productSaved = false;
-  categorias: Categoria[] = [
+  categorias: Categoria[] = [];
+    /*Categoria[] = [
     { idCategoria: 1, nombre: 'Electrónica' },
     { idCategoria: 2, nombre: 'Hogar' },
     { idCategoria: 3, nombre: 'Ropa' }
-  ]; // Ejemplo de categorías con objetos
+  ];*/ // Ejemplo de categorías con objetos
 
-  marcas: Marca[] = [
+  marcas: Marca[] = [];
+    /*Marca[] = [
     { idMarca: 1, nombre: 'Marca A' },
     { idMarca: 2, nombre: 'Marca B' }
-  ]; // Ejemplo de marcas como objetos
+  ];*/ // Ejemplo de marcas como objetos
 
-  unidadesMedida = [
+  unidadesMedida: UnidadMedida[] = [];
+    /*UnidadMedida = [
     { idUnidad: 1, nombre: 'Unidad' },
     { idUnidad: 2, nombre: 'Caja' }
-  ]; // Ejemplo de unidades de medida como objetos
+  ];*/ // Ejemplo de unidades de medida como objetos
 
   productoSeleccionado:ProductoRepor|null = null;
 
-  constructor(private serviceProducto:ProductoService, private serviceMarca:MarcaService, private fb: FormBuilder) {
+  constructor(private serviceProducto:ProductoService,
+              private servicioMarca:MarcaService,
+              private servicioCategoria:CategoriaService,
+              private servicioUnidadMedida:UnidadMedidaService,
+              private fb: FormBuilder
+  ) {
     this.productForm = this.fb.group({
       idProducto: [null],
       nombre: ['', Validators.required],
@@ -59,8 +68,8 @@ export class FormProductoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.serviceProducto.productoSeleccionado$.subscribe(data => { this.productoSeleccionado =
-      data;
+    this.serviceProducto.productoSeleccionado$.subscribe(data => {
+      this.productoSeleccionado = data;
       if (data) {
         this.productForm.patchValue(data);
         this.productForm.patchValue({
@@ -69,6 +78,23 @@ export class FormProductoComponent implements OnInit {
           unidadMedida: data.unidadMedida.idUnidad
         });
       }
+    });
+    this.servicioMarca.findAll();
+    this.servicioMarca.marcas$.subscribe(data=>{
+      console.log(data);
+      this.marcas=data;
+    });
+
+    this.servicioCategoria.findAll();
+    this.servicioCategoria.categorias$.subscribe(data=>{
+      console.log(data);
+      this.categorias=data;
+    });
+
+    this.servicioUnidadMedida.findAll();
+    this.servicioUnidadMedida.unidadMedida$.subscribe(data=>{
+      console.log(data);
+      this.unidadesMedida=data;
     });
   }
   saveProduct() {
@@ -102,8 +128,8 @@ export class FormProductoComponent implements OnInit {
       this.productForm.reset({
         idProducto: null,
         nombre: '',
-        pu: 0,
-        puOld: 0,
+        pu: 0.0,
+        puOld: 0.0,
         utilidad: 0,
         stock: 0,
         stockOld: 0,
