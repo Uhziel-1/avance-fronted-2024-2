@@ -4,20 +4,23 @@ import {Categoria} from "../../model/Categoria";
 import {Marca} from "../../model/Marca";
 import {ProductoService} from "../../service/producto.service";
 import {Producto} from "../../model/Producto";
-import {NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {ProductoRepor} from "../../model/ProductoRepor";
 import {MarcaService} from "../../service/marca.service";
 import {CategoriaService} from "../../service/categoria.service";
 import {UnidadMedidaService} from "../../service/unidadMedida.service";
 import {UnidadMedida} from "../../model/UnidadMedida";
+import {Observable} from "rxjs";
+import {MaterialModule} from "../../material/material.module";
+import {MatOption, MatSelect} from "@angular/material/select";
+import {MatCard, MatCardHeader, MatCardTitleGroup} from "@angular/material/card";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-form-producto',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
-    NgForOf,
-    NgIf
+    ReactiveFormsModule, NgForOf, NgIf, MaterialModule, MatSelect, MatOption, MatCard, MatCardHeader, MatCardTitleGroup, RouterLink, AsyncPipe
   ],
   templateUrl: './form-producto.component.html',
   styleUrl: './form-producto.component.css'
@@ -26,40 +29,28 @@ export class FormProductoComponent implements OnInit {
   productForm: FormGroup;
   productSaved = false;
   categorias: Categoria[] = [];
-    /*Categoria[] = [
-    { idCategoria: 1, nombre: 'Electrónica' },
-    { idCategoria: 2, nombre: 'Hogar' },
-    { idCategoria: 3, nombre: 'Ropa' }
-  ];*/ // Ejemplo de categorías con objetos
-
   marcas: Marca[] = [];
-    /*Marca[] = [
-    { idMarca: 1, nombre: 'Marca A' },
-    { idMarca: 2, nombre: 'Marca B' }
-  ];*/ // Ejemplo de marcas como objetos
+  unidadMedidas$: Observable<UnidadMedida[]>;
+  productoSeleccionado: ProductoRepor | null = null;
+  fbr: FormBuilder = new FormBuilder();
 
-  unidadesMedida: UnidadMedida[] = [];
-    /*UnidadMedida = [
-    { idUnidad: 1, nombre: 'Unidad' },
-    { idUnidad: 2, nombre: 'Caja' }
-  ];*/ // Ejemplo de unidades de medida como objetos
+  constructor(private serviceProducto: ProductoService, private sevicioMarca: MarcaService,
+              private sevicioCategoria: CategoriaService,
+              private serviceUnitMed: UnidadMedidaService,
+              private fb: FormBuilder) {
+    this.fbr = this.fb
+    this.formInial(this.fbr);
+  }
 
-  productoSeleccionado:ProductoRepor|null = null;
-
-  constructor(private serviceProducto:ProductoService,
-              private servicioMarca:MarcaService,
-              private servicioCategoria:CategoriaService,
-              private servicioUnidadMedida:UnidadMedidaService,
-              private fb: FormBuilder
-  ) {
-    this.productForm = this.fb.group({
+  formInial(fb: FormBuilder) {
+    this.productForm = fb.group({
       idProducto: [null],
-      nombre: ['', Validators.required],
+      nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(70)]],
       pu: [0, Validators.required],
-      puOld: [0],
+      puOld: [0, Validators.required],
       utilidad: [0, Validators.required],
       stock: [0, Validators.required],
-      stockOld: [0],
+      stockOld: [0, Validators.required],
       categoria: [null, Validators.required],
       marca: [null, Validators.required],
       unidadMedida: [null, Validators.required]
@@ -67,81 +58,78 @@ export class FormProductoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.serviceProducto.productoSeleccionado$.subscribe(data => {
-      this.productoSeleccionado = data;
-      if (data) {
-        this.productForm.patchValue(data);
+    this.serviceProducto.productoSeleccionado$.subscribe(producto => {
+      this.productoSeleccionado = producto;
+      if (producto) {
+        this.productForm.patchValue(producto);
         this.productForm.patchValue({
-          categoria: data.categoria.idCategoria,
-          marca: data.marca.idMarca,
-          unidadMedida: data.unidadMedida.idUnidad
+          categoria: producto.categoria.idCategoria,
+          marca: producto.marca.idMarca,
+          unidadMedida: producto.unidadMedida.idUnidad
         });
       }
     });
-    this.servicioMarca.findAll();
-    this.servicioMarca.marcas$.subscribe(data=>{
-      console.log(data);
-      this.marcas=data;
+    this.sevicioMarca.findAll();
+    this.sevicioMarca.marcas$.subscribe(data => {
+      this.marcas = data;
     });
-
-    this.servicioCategoria.findAll();
-    this.servicioCategoria.categorias$.subscribe(data=>{
-      console.log(data);
-      this.categorias=data;
+    this.sevicioCategoria.findAll().subscribe(data => {
+      this.sevicioCategoria.setCategoriaChange(data);
     });
-
-    this.servicioUnidadMedida.findAll();
-    this.servicioUnidadMedida.unidadMedida$.subscribe(data=>{
-      console.log(data);
-      this.unidadesMedida=data;
+    this.sevicioCategoria.getCategoriaChange().subscribe(data => {
+      this.categorias = data;
     });
+    this.unidadMedidas$ = this.serviceUnitMed.findAll();
   }
+
   saveProduct() {
-    if (this.productForm.valid) {
-      console.log(this.productForm.value);
-      const product: Producto = new Producto();
-      product.idProducto = this.productForm.value['idProducto'];
-      product.nombre = this.productForm.value['nombre'];
-      product.pu = this.productForm.value['pu'];
-      product.puOld = this.productForm.value['puOld'];
-      product.utilidad = this.productForm.value['utilidad'];
-      product.stock = this.productForm.value['stock'];
-      product.stockOld = this.productForm.value['stockOld'];
-      product.categoria = this.productForm.value['categoria'];
-      product.marca = this.productForm.value['marca'];
-      product.unidadMedida = this.productForm.value['unidadMedida'];
-      console.log(product);
-      this.serviceProducto.save(product).subscribe({
-        next: (response) => {
-          console.log('Producto guardado exitosamente', response);
-          this.productForm.reset(); // Resetea el formulario después de guardar
-        },
-        error: (error) => {
-          console.error('Error al guardar el producto', error);
-        }
+    if (this.productoSeleccionado !== null) {
+      const productoActualizado: Producto = {
+        ...this.productoSeleccionado,
+        ...this.productForm.value,
+      };
+      console.log(productoActualizado);
+      this.serviceProducto.update(productoActualizado.idProducto, productoActualizado).subscribe(() => {
+        this.productoSeleccionado = null;
+        this.productForm.reset();
+        this.formInial(this.fbr);
+        //this.productForm.clearValidators();
       });
-      // Guardar el producto y mostrar mensaje de éxito
-      this.productSaved = true;
-
-      // Resetear el formulario
-      this.productForm.reset({
-        idProducto: null,
-        nombre: '',
-        pu: 0.0,
-        puOld: 0.0,
-        utilidad: 0,
-        stock: 0,
-        stockOld: 0,
-        categoria: null,
-        marca: null,
-        unidadMedida: null
-      });
-
-      // Ocultar mensaje de éxito después de unos segundos
-      setTimeout(() => this.productSaved = false, 3000);
-    }else{
-      this.productForm.markAllAsTouched();
+    } else {
+      if (this.productForm.valid) {
+        console.log(this.productForm.value);
+        const product: Producto = new Producto();
+        product.idProducto = this.productForm.value['idProducto'];
+        product.nombre = this.productForm.value['nombre'];
+        product.pu = this.productForm.value['pu'];
+        product.puOld = this.productForm.value['puOld'];
+        product.utilidad = this.productForm.value['utilidad'];
+        product.stock = this.productForm.value['stock'];
+        product.stockOld = this.productForm.value['stockOld'];
+        product.categoria = this.productForm.value['categoria'];
+        product.marca = this.productForm.value['marca'];
+        product.unidadMedida = this.productForm.value['unidadMedida'];
+        console.log(product);
+        this.serviceProducto.save(product).subscribe({
+          next: (response) => {
+            console.log('Producto guardado exitosamente', response);
+          },
+          error: (error) => {
+            console.error('Error al guardar el producto', error);
+          }
+        });
+        this.productSaved = true;
+        this.formInial(this.fbr);
+        setTimeout(() => this.productSaved = false, 3000);
+      } else {
+        console.log("Manda Error!")
+        this.productForm.markAllAsTouched();
+      }
     }
+  }
+
+  resetButton() {
+    this.productoSeleccionado = null;
+    this.formInial(this.fbr);
   }
 }

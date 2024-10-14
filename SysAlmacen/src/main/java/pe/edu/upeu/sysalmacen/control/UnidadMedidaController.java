@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/unidadMedidas")
-@CrossOrigin("*")
+// @CrossOrigin("*")
 public class UnidadMedidaController {
     private final IUnidadMedidaService unidadMedidaService;
     private final UnidadMedidaMapper unidadMedidaMapper;

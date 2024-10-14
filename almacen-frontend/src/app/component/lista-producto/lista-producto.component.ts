@@ -15,6 +15,7 @@ import {MatSort, MatSortModule} from "@angular/material/sort";
 import {MatInput} from "@angular/material/input";
 import {FormProductoComponent} from "../form-producto/form-producto.component";
 import {MaterialModule} from "../../material/material.module";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-lista-producto',
@@ -38,28 +39,42 @@ import {MaterialModule} from "../../material/material.module";
     MatHeaderCellDef,
     MatLabel,
     FormProductoComponent,
-    MatSortModule
+    MatSortModule,
+    NgIf
   ],
   templateUrl: './lista-producto.component.html',
   styleUrl: './lista-producto.component.css'
 })
 export class ListaProductoComponent implements OnInit {
 
-  productos: ProductoRepor[]=[];
+  productos: ProductoRepor[] = [];
 
-  displayedColumns: string[] = ['idProducto', 'nombre', 'pu', 'puOld', 'acciones'];
+  // displayedColumns: string[] = ['idProducto', 'nombre', 'pu', 'puOld', 'acciones'];
+  columnsDefinitions = [
+    {def: 'idProducto', label: 'idProducto', hide: true},
+    {def: 'nombre', label: 'nombre', hide: false},
+    {def: 'pu', label: 'pu', hide: false},
+    {def: 'puOld', label: 'puOld', hide: false},
+    {def: 'categoria', label: 'categoria', hide: false},
+    {def: 'acciones', label: 'acciones', hide: false}
+  ];
   dataSource: MatTableDataSource<ProductoRepor>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private productoService: ProductoService) {
+  showComponent: boolean = false;
 
+  toggleComponent(da: boolean) {
+    this.showComponent = da;
+  }
+
+  constructor(private productoService: ProductoService) {
   }
 
   ngOnInit() {
     //this.productoService.findAll().subscribe(productos => this.productos = productos);
-    this.productoService.productos$.subscribe(data=>{
+    this.productoService.productos$.subscribe(data => {
       //this.productos=data;
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
@@ -70,13 +85,13 @@ export class ListaProductoComponent implements OnInit {
     this.productoService.findAll();
   }
 
-  eliminar(id:number) {
+  eliminar(id: number) {
     if (confirm("¿Esta seguro que desea eliminar?")) {
       this.productoService.delete(id).subscribe();
     }
   }
 
-  cargarProducto(producto:ProductoRepor) {
+  cargarProducto(producto: ProductoRepor) {
     this.productoService.seleccionarProducto(producto);
   }
 
@@ -88,5 +103,10 @@ export class ListaProductoComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  getDisplayedColumns() {
+    return this.columnsDefinitions.filter(cd => !cd.hide).map(cd => cd.def);
+  }
+
 
 }
