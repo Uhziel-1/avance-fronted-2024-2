@@ -58,6 +58,12 @@
         <span>Register Consult W.</span>
       </button>
       <mat-divider></mat-divider>
+      <button class="myButton" mat-menu-item (click)="sidenav.toggle()"
+              routerLink="/pages/venta" style="cursor: pointer">
+        <mat-icon>home</mat-icon>
+        <span>Main Venta</span>
+      </button>
+      <mat-divider></mat-divider>
     </mat-sidenav>
     <mat-sidenav-content>
       <router-outlet />

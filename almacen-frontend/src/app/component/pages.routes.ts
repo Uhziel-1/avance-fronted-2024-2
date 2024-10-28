@@ -6,6 +6,7 @@ import {MainMarcaComponent} from "./main-marca/main-marca.component";
 import {MainUnidadMedidaComponent} from "./main-unidadmedida/main-unidadmedida.component";
 import {FormMarcaComponent} from "./main-marca/form-marca/form-marca.component";
 import {FormUnidadMedidaComponent} from "./main-unidadmedida/form-unidadmedida/form-unidadmedida.component";
+import {MainVentaComponent} from "./main-venta/main-venta.component";
 export const pagesRoutes: Routes = [
   {
     path: 'product',
@@ -31,5 +32,9 @@ export const pagesRoutes: Routes = [
       { path: 'new', component: FormUnidadMedidaComponent },
       { path: 'edit/:id', component: FormUnidadMedidaComponent },
     ],
+  },
+  {
+    path: 'venta',
+    component: MainVentaComponent,
   }
 ];

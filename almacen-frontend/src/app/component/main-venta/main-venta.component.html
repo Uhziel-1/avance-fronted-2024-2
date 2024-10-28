@@ -1,0 +1,27 @@
+<form [formGroup]="salesFormGroup">
+
+  <mat-form-field class="form-field-spacing">
+    <mat-label>Nombre del Producto</mat-label>
+    <input matInput placeholder="Producto" [formControl]="producControl" [matAutocomplete]="autoProd" [formControl]="producControl">
+    <mat-autocomplete #autoProd="matAutocomplete" [displayWith]="showName" (optionSelected)="onProductSelected($event)">
+      @for (ex of productFiltered$ | async; track $index) {
+        <mat-option [value]="ex">
+          {{ex.nombre}}
+        </mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="form-field-spacing">
+    <mat-label>Id. Producto</mat-label>
+    <input matInput formControlName="idProducto" placeholder="Id Producto" [readonly]="true"/>
+    <mat-hint align="start" *ngIf="salesFormGroup.controls['idProducto'].invalid && salesFormGroup.controls['idProducto'].touched" >
+      Este campo es requerido</mat-hint>
+  </mat-form-field>
+  <mat-form-field class="form-field-spacing">
+    <mat-label>Precio Unitario</mat-label>
+    <input matInput formControlName="pu" placeholder="Precio unitario" />
+    <mat-hint align="start" *ngIf="salesFormGroup.controls['pu'].invalid && salesFormGroup.controls['pu'].touched">
+      Este campo es requerido</mat-hint>
+  </mat-form-field>
+</form>
