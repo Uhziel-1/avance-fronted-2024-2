@@ -8,6 +8,8 @@ import {FormMarcaComponent} from "./main-marca/form-marca/form-marca.component";
 import {FormUnidadMedidaComponent} from "./main-unidadmedida/form-unidadmedida/form-unidadmedida.component";
 import {MainVentaComponent} from "./main-venta/main-venta.component";
 import {MainReportesComponent} from "./main-reportes/main-reportes.component";
+import {MainProductoComponent} from "./main-producto/main-producto.component";
+import {FormxProductoComponent} from "./main-producto/formx-producto/formx-producto.component";
 export const pagesRoutes: Routes = [
   {
     path: 'product',
@@ -41,5 +43,13 @@ export const pagesRoutes: Routes = [
   {
     path: 'reporte',
     component: MainReportesComponent,
-  }
+  },
+  {
+    path: 'productox',
+    component: MainProductoComponent,
+    children: [
+      { path: 'new', component: FormxProductoComponent },
+      { path: 'edit/:id', component: FormxProductoComponent },
+    ],
+  },
 ];

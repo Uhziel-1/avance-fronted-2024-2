@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.edu.upeu.sysalmacen.dtos.ProductoDTO;
@@ -104,4 +106,7 @@ public class ProductoServiceImp extends CrudGenericoServiceImp<Producto, Long> i
         return pdfBytes;
     }
 
+    public Page<Producto> listaPage(Pageable pageable){
+        return repo.findAll(pageable);
+    }
 }

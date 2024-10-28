@@ -70,6 +70,11 @@
         <span>Main Reportes</span>
       </button>
       <mat-divider></mat-divider>
+      <button class="myButton" mat-menu-item (click)="sidenav.toggle()"
+              routerLink="/pages/productox" style="cursor: pointer">
+        <mat-icon>account_balance</mat-icon>
+        <span>Main Producto</span>
+      </button>
     </mat-sidenav>
     <mat-sidenav-content>
       <router-outlet />

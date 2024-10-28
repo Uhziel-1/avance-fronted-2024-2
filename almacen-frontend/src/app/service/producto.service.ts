@@ -28,7 +28,7 @@ export class ProductoService {
 
 
   findById(id:number){
-    return this.http.get<Producto>(this.url + `/${id}`);
+    return this.http.get<ProductoRepor>(this.url + `/${id}`);
   }
 
   save(producto: Producto):Observable<Producto>{
@@ -58,4 +58,7 @@ export class ProductoService {
   setProductosSubject(data: ProductoRepor[]){this.productosSubject.next(data);}
   getProductosSubject(){return this.productosSubject.asObservable();}
 
+  listPageable(p: number, s: number){
+    return this.http.get<any>(`${this.url}/pageable?page=${p}&size=${s}`);
+  }
 }

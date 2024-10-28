@@ -2,13 +2,13 @@ package pe.edu.upeu.sysalmacen.control;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import pe.edu.upeu.sysalmacen.dtos.MarcaDTO;
 import pe.edu.upeu.sysalmacen.dtos.ProductoDTO;
 import pe.edu.upeu.sysalmacen.mappers.ProductoMapper;
-import pe.edu.upeu.sysalmacen.modelo.Marca;
 import pe.edu.upeu.sysalmacen.modelo.Producto;
 import pe.edu.upeu.sysalmacen.servicio.IProductoService;
 
@@ -52,5 +52,11 @@ public class ProductoController {
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         productoService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/pageable")
+    public ResponseEntity<org.springframework.data.domain.Page<ProductoDTO>> listPage(Pageable pageable){
+        Page<ProductoDTO> page = productoService.listaPage(pageable).map(e -> productoMapper.toDTO(e));
+        return ResponseEntity.ok(page);
     }
 }
