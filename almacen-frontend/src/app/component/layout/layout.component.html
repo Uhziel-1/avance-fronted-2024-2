@@ -64,6 +64,12 @@
         <span>Main Venta</span>
       </button>
       <mat-divider></mat-divider>
+      <button class="myButton" mat-menu-item (click)="sidenav.toggle()"
+              routerLink="/pages/reporte" style="cursor: pointer">
+        <mat-icon>home</mat-icon>
+        <span>Main Reportes</span>
+      </button>
+      <mat-divider></mat-divider>
     </mat-sidenav>
     <mat-sidenav-content>
       <router-outlet />
