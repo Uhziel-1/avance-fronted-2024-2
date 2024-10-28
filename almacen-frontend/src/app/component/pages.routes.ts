@@ -10,6 +10,7 @@ import {MainVentaComponent} from "./main-venta/main-venta.component";
 import {MainReportesComponent} from "./main-reportes/main-reportes.component";
 import {MainProductoComponent} from "./main-producto/main-producto.component";
 import {FormxProductoComponent} from "./main-producto/formx-producto/formx-producto.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 export const pagesRoutes: Routes = [
   {
     path: 'product',
@@ -52,4 +53,6 @@ export const pagesRoutes: Routes = [
       { path: 'edit/:id', component: FormxProductoComponent },
     ],
   },
+  { path: 'dashboard', component: DashboardComponent},
+
 ];

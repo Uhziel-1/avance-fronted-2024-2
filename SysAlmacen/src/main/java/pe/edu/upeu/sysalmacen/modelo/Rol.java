@@ -14,13 +14,18 @@ import lombok.NoArgsConstructor;
 @Table(name = "upeu_roles")
 public class Rol {
 
+    public enum RolNombre {
+        ADMIN, USER, DBA
+    }
+
     @Id
     @Column(name = "id_rol")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRol;
 
     @Column(name = "nombre", nullable = false, length = 60)
-    private String nombre;
+    @Enumerated(EnumType.STRING)
+    private RolNombre nombre;
 
     @Column(name = "descripcion", nullable = false, length = 120)
     private String descripcion;
