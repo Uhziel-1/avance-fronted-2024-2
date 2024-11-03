@@ -16,7 +16,7 @@ INSERT INTO `upeu_roles` (`id_rol`, `descripcion`, `nombre`) VALUES
 (2, 'Admin DBA', 'DBA'),
 (3, 'Usuario', 'USER');
 INSERT INTO `upeu_usuario` (`id_usuario`, `clave`, `estado`, `user`) VALUES
-(1, '$2a$10$Fgy9/YB3xri/n8stC889WuzvFRSKgGtYMeFnR2b4iiWyeiaMGdOF2', 'Activo', 'davidmp@upeu.edu.pe');
+(1, '$2y$10$.uzxNdOjFDsGyByYFfdFQOLgC6IC28R5kQPPfQ1Y98alqODwV5Cga', 'Activo', 'uhziel@gmail.com');
 INSERT INTO `upeu_usuario_rol` (`rol_id`, `usuario_id`) VALUES
 (1, 1);
 INSERT INTO `upeu_venta` (`id_venta`, `fecha_gener`, `igv`, `num_doc`, `preciobase`, `preciototal`, `serie`, `tipo_doc`, `dniruc`, `id_usuario`) VALUES
