@@ -11,6 +11,8 @@ import {MainReportesComponent} from "./main-reportes/main-reportes.component";
 import {MainProductoComponent} from "./main-producto/main-producto.component";
 import {FormxProductoComponent} from "./main-producto/formx-producto/formx-producto.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {Not403Component} from "./not403/not403.component";
+import {certGuard} from "../guard/cert.guard";
 export const pagesRoutes: Routes = [
   {
     path: 'product',
@@ -18,9 +20,10 @@ export const pagesRoutes: Routes = [
     children: [
       { path: 'new', component: FormProductoComponent },
       { path: 'edit/:id', component: FormProductoComponent },
-    ],
+    ], canActivate: [certGuard],
   },
-  { path: 'categoria', component: MainCategoriaComponent },
+  { path: 'categoria', component: MainCategoriaComponent,
+    canActivate: [certGuard]},
   {
     path: 'marca',
     component: MainMarcaComponent,
@@ -28,6 +31,7 @@ export const pagesRoutes: Routes = [
       { path: 'new', component: FormMarcaComponent },
       { path: 'edit/:id', component: FormMarcaComponent },
     ],
+    canActivate: [certGuard],
   },
   {
     path: 'unidadMedida',
@@ -36,14 +40,17 @@ export const pagesRoutes: Routes = [
       { path: 'new', component: FormUnidadMedidaComponent },
       { path: 'edit/:id', component: FormUnidadMedidaComponent },
     ],
+    canActivate: [certGuard],
   },
   {
     path: 'venta',
     component: MainVentaComponent,
+    canActivate: [certGuard]
   },
   {
     path: 'reporte',
     component: MainReportesComponent,
+    canActivate: [certGuard]
   },
   {
     path: 'productox',
@@ -52,7 +59,9 @@ export const pagesRoutes: Routes = [
       { path: 'new', component: FormxProductoComponent },
       { path: 'edit/:id', component: FormxProductoComponent },
     ],
+    canActivate: [certGuard],
   },
-  { path: 'dashboard', component: DashboardComponent},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [certGuard]},
+  { path: 'not-403', component: Not403Component},
 
 ];

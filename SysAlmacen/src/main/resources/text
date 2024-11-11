@@ -1,0 +1,73 @@
+Los administradores de Servidores, deben de configurar en el TomCat o en algo similar.
+
+Descargar apache tomcat
+Entrar a Conf
+Archivo con nombre server
+
+Alli se debe encontrar, GlobarNamingResources
+
+Pregunta ar ChatGPT, por el JNDI para tomcat.
+Cambiar algunas cosas, como en lugar de localhost, poner la IP, nombre de la base de datos.
+No poner usuario root, jamas, es muy comun y te hackean.
+Poner una clave verdaderamente segura.
+Para ello hay que crear un nuevo usuario
+y darle roles segun hará.
+
+fin
+
+Ahora en el archivo context
+
+Pregunta a GPT por el resource link para el context.
+El mismo nombre que se puso en el server
+name=""
+global=""
+auth="Container"
+type=""
+
+Y listo
+
+Y para que si despliegue se tiene que excluir del POM.xml
+
+<exclution>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-tomcat</artifactId>
+</excluion>
+
+Posiblemente commentar el swagger, o sea springdoc
+
+En main
+se debe poner una carpeta webapp
+dentro de poner carpeta META-INF
+dentro poner context.xml
+en context.xml, agregar una ruta <?xml version="" encoding="UTF-8"
+<Context path="/SysAlmacen">
+</Context>
+
+
+generar el .war para funcionar.
+en cmd en el proyecto generar 'mvn clean package', OJO, comentar las pruebas/test
+tambien verificar la version de JAVA
+
+Fin
+
+ejecutar tomcat desde el bin por cmd 'startup.bat'
+verificar que nada esté en el puerto 8080
+
+pegar dentro del tomcat dentro de webapps el .war que hemos creado, y renombrarlo al nombre que se puso en el context.
+Ya busca http://IP:8080/SysAlmacen/
+
+Lo normal es lo que te entreguen una forma de entregar tus archivos a los administradores y que ellos ya lo pongan.
+
+Listo
+
+Ahora, para el frontent es en cmd 'ng built --aot' y se genera el compilado y ese compilado esta en el dist.
+Pero antes de eso, hay que cambiar la ruta de conexion con el backend en enviropment, http://IP:8080/SysAlmacen/
+
+Ok, y en el index.html
+cambiar el base href="/almacen/" <- O lo que quieras
+
+lo que se debe de hacer es en browse sacar los archivos y empaquetarlo 'jar cvf almacen.war *'
+subir al webapps el empaquetado.
+
+buscar http://IP:8080/almacen/
+Y listo, funciona.

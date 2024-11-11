@@ -16,7 +16,7 @@ INSERT INTO `upeu_roles` (`id_rol`, `descripcion`, `nombre`) VALUES
 (2, 'Admin DBA', 'DBA'),
 (3, 'Usuario', 'USER');
 INSERT INTO `upeu_usuario` (`id_usuario`, `clave`, `estado`, `user`) VALUES
-(1, '$2a$10$Fgy9/YB3xri/n8stC889WuzvFRSKgGtYMeFnR2b4iiWyeiaMGdOF2', 'Activo', 'davidmp@upeu.edu.pe');
+(1, '$2y$10$/3JEMQVnnnpI0diEw94xZ.PiC1AsHtEnlDiXG036eSDQxcofiE4Pm', 'Activo', 'uhziel@gmail.com');
 INSERT INTO `upeu_usuario_rol` (`rol_id`, `usuario_id`) VALUES
 (1, 1);
 INSERT INTO `upeu_venta` (`id_venta`, `fecha_gener`, `igv`, `num_doc`, `preciobase`, `preciototal`, `serie`, `tipo_doc`, `dniruc`, `id_usuario`) VALUES
@@ -27,3 +27,28 @@ INSERT INTO `upeu_venta_detalle` (`id_venta_detalle`, `cantidad`, `descuento`, `
 (1, 1, 0, 300, 300, 1, 1),
 (2, 2, 0, 300, 600, 1, 2),
 (3, 3, 0, 100, 300, 2, 3);
+
+/*
+INSERT INTO upeu_accesos(id_acceso, nombre, icono, url) VALUES (1, 'Dashboard', 'home', '/pages/dashboard');
+INSERT INTO upeu_accesos(id_acceso, nombre, icono, url) VALUES (2, 'Producto', 'scanner', '/pages/product');
+INSERT INTO upeu_accesos(id_acceso, nombre, icono, url) VALUES (3, 'Gestion Marca', 'view_carousel', '/pages/marca');
+INSERT INTO upeu_accesos(id_acceso, nombre, icono, url) VALUES (4, 'Gestion Categoria', 'view_carousel', '/pages/categoria');
+INSERT INTO upeu_accesos(id_acceso, nombre, icono, url) VALUES (5, 'Gestion Unidad Medida', 'view_carousel', '/pages/unidadmedida');
+INSERT INTO upeu_accesos(id_acceso, nombre, icono, url) VALUES (6, 'Gestion Producto', 'business_center', '/pages/productox');
+INSERT INTO upeu_accesos(id_acceso, nombre, icono, url) VALUES (7, 'Gestion Venta', 'business_center', '/pages/venta');
+INSERT INTO upeu_accesos(id_acceso, nombre, icono, url) VALUES (8, 'Reporte', 'assessment', '/pages/reporte');
+
+INSERT INTO upeu_acceso_rol (acceso_id, rol_id) VALUES (1, 1);
+INSERT INTO upeu_acceso_rol (acceso_id, rol_id) VALUES (2, 1);
+INSERT INTO upeu_acceso_rol (acceso_id, rol_id) VALUES (3, 1);
+INSERT INTO upeu_acceso_rol (acceso_id, rol_id) VALUES (4, 1);
+INSERT INTO upeu_acceso_rol (acceso_id, rol_id) VALUES (5, 1);
+INSERT INTO upeu_acceso_rol (acceso_id, rol_id) VALUES (6, 1);
+INSERT INTO upeu_acceso_rol (acceso_id, rol_id) VALUES (7, 1);
+INSERT INTO upeu_acceso_rol (acceso_id, rol_id) VALUES (8, 1);
+INSERT INTO upeu_acceso_rol (acceso_id, rol_id) VALUES (1, 3);
+INSERT INTO upeu_acceso_rol (acceso_id, rol_id) VALUES (3, 3);
+INSERT INTO upeu_acceso_rol (acceso_id, rol_id) VALUES (4, 3);
+INSERT INTO upeu_acceso_rol (acceso_id, rol_id) VALUES (5, 3);
+INSERT INTO upeu_acceso_rol (acceso_id, rol_id) VALUES (6, 3)
+ */
