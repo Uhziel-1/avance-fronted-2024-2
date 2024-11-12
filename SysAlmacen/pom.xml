@@ -96,7 +96,6 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<version>1.5.5.Final</version>
 		</dependency>
-
 		<!-- Necesario desde Spring Boot 2.3 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
